@@ -39,7 +39,7 @@ for x in rows:
     # Many organizations have no field code in the IRS file, including Food Gatherers, so they stay in as "Not classified"
     if x["ZIP"][:3] in ZIPS and x["SUBSECTION"] == "03" and (not ntee or ntee[0] in FIELDS):
         keep.append({"name": x["NAME"].title(), "ein": x["EIN"], "city": x["CITY"].title(), "zip": x["ZIP"][:5],
-                     "field": FIELDS[ntee[0]] if ntee else "Not classified", "revenue": num(x["REVENUE_AMT"]), "assets": num(x["ASSET_AMT"]),
+                     "field": FIELDS[ntee[0]] if ntee else "Not classified", "ntee": ntee[:3], "revenue": num(x["REVENUE_AMT"]), "assets": num(x["ASSET_AMT"]),
                      "since": (x.get("RULING") or "")[:4], "tax_period": x.get("TAX_PERIOD") or ""})
 keep.sort(key=lambda o: -o["revenue"])
 
